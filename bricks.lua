@@ -68,7 +68,7 @@ function draw_brick()
 		elseif bricks_type[i]=="h" then
 			brick_clr=13
 		elseif bricks_type[i]=="i" then
-		 brick_clr=0
+			brick_clr=0
 		elseif bricks_type[i]=="e" then
 			brick_clr=9
 		elseif bricks_type[i]=="p" then

@@ -24,7 +24,7 @@ end
 
 function spawn_pwp(_x,_y)
 	local _t = flr(rnd(7)) + 1
-	_t = 7
+	_t = 4
 	pwp_x[#pwp_x+1]=_x+1
 	pwp_y[#pwp_x]=_y
 	pwp_t[#pwp_x]=_t
@@ -52,6 +52,7 @@ function pwp_get(_t)
 	if _t == 1 then
 		-- mega
 		powerup=1
+		powerup_t=900
 	elseif _t == 2 then
 		-- sticky
 		powerup=2
@@ -63,9 +64,10 @@ function pwp_get(_t)
 	elseif _t == 4 then
 		-- speed
 		powerup=4
+		powerup_t=900
 	elseif _t == 5 then
 		-- life
-	 powerup=0
+		powerup=0
 		lives+=1
 	elseif _t == 6 then
 		-- multi

@@ -14,8 +14,13 @@ function move_ball()
 	--updates ball position
 --	x_prev=x
 --	y_prev=y
-	x=mid(0+rad,x+dx,127-rad)
-	y+=dy
+	if powerup==4 then
+		x=mid(0+rad,x+(dx/2),127-rad)
+		y+=(dy/2)
+	else
+		x=mid(0+rad,x+dx,127-rad)
+		y+=dy
+	end
 	if x+rad>=127 or x-rad<=0 then
 		dx=-dx
 		sfx(0)

@@ -31,13 +31,13 @@ function _init()
 	levelnum=1
 	levels={}
 	levels[1]="x6b"
- levels[2]="b9bb9bb9bb9bb9bb9b"
+	levels[2]="b9bb9bb9bb9bb9bb9b"
 	levels[3]="bxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbx"
 	levels[1]="bxhxixexp"
 	levels[1]="i999999bbbhhhppee"
 	levels[1]="e9999999"
 	levels[1]="p999"
-	levels[1]="b9bi9ii9ii9ibxxxxxb"
+--	levels[1]="b9bi9ii9ii9ibxxxxxb"
 end
 
 function serveball()
