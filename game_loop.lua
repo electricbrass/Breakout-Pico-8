@@ -121,11 +121,14 @@ function update_game()
 	for i=1,#bricks_x do
 		-- check if hit brick
 		if not(bricks_brk[i]) and check_collision(bricks_x[i],bricks_y[i],brick_w,brick_h) then
-		 -- check direction
-			if collision_direction(x,y,dx,dy,bricks_x[i],bricks_y[i],brick_w,brick_h) then
-				dx=-dx
-			else
-				dy=-dy
+		-- no collision if megaball
+			if powerup!=1 or bricks_type[i]=="i" then
+			-- check direction
+				if collision_direction(x,y,dx,dy,bricks_x[i],bricks_y[i],brick_w,brick_h) then
+					dx=-dx
+				else
+					dy=-dy
+				end
 			end
 			hitbrick(i,true)
 			break

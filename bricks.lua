@@ -97,7 +97,7 @@ function levelfinished()
 end
 
 function hitbrick(_i,_combo)
- if bricks_type[_i]=="b" then
+	if bricks_type[_i]=="b" then
 		sfx(3+combo)
 		if _combo then
 			points+=10*combo*mult
@@ -105,8 +105,17 @@ function hitbrick(_i,_combo)
 		end
 		bricks_brk[_i]=true
 	elseif bricks_type[_i]=="h" then
-	 sfx(12)
-	 bricks_type[_i]="b"
+		if powerup==1 then
+			sfx(3+combo)
+			if _combo then
+				points+=10*combo*mult
+				combo=mid(1,combo+1,7)
+			end
+			bricks_brk[_i]=true
+		else
+			sfx(12)
+			bricks_type[_i]="b"
+		end
 	elseif bricks_type[_i]=="i" then
 		sfx(12)
 	elseif bricks_type[_i]=="e" then
