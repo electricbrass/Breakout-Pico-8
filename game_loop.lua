@@ -1,8 +1,3 @@
-#include bricks.lua
-#include powerups.lua
-#include paddle.lua
-#include ball.lua
-
 --game loop
 function _update60()
 	if gamestate=="start" then
