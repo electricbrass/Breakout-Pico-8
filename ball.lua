@@ -1,3 +1,5 @@
+#include game_loop.lua
+
 --ball
 dx=1
 dy=1

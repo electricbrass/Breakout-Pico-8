@@ -1,3 +1,6 @@
+#include game_loop.lua
+#include powerups.lua
+
 --bricks
 
 brick_w=9

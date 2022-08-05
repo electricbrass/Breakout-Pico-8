@@ -1,5 +1,5 @@
 pico-8 cartridge // http://www.pico-8.com
-version 35
+version 36
 __lua__
 #include game_loop.lua
 #include paddle.lua

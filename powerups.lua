@@ -1,3 +1,5 @@
+#include paddle.lua
+
 --powerups
 -- 1 - mega ball
 -- 2 - sticky
@@ -24,7 +26,7 @@ end
 
 function spawn_pwp(_x,_y)
 	local _t = flr(rnd(7)) + 1
-	_t = 1
+	_t = 4
 	pwp_x[#pwp_x+1]=_x+1
 	pwp_y[#pwp_x]=_y
 	pwp_t[#pwp_x]=_t
