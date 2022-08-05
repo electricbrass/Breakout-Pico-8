@@ -1,5 +1,3 @@
-#include powerups.lua
-
 --paddle
 pad_x=52
 pad_y=120
