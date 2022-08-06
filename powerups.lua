@@ -7,10 +7,6 @@
 -- 6 - multiball
 -- 7 - small paddle
 
-function resetpickups()
-	powerups = {}
-end
-
 function drawpickups()
 	for i=1,#powerups do
 		spr(powerups[i].t,powerups[i].x,powerups[i].y)

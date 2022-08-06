@@ -48,7 +48,7 @@ function serveball()
 	sticky=true
 	last_dir="right"
 	angle=1
-	resetpickups()
+	powerups={}
 	powerup=0
 	powerup_t=0
 	offset=flr(pad_w0/2)
@@ -118,13 +118,13 @@ function update_game()
 		end
 		move_ball()
 	end
-	for i=1,#bricks_x do
+	for i=1,#bricks do
 		-- check if hit brick
-		if not(bricks_brk[i]) and check_collision(bricks_x[i],bricks_y[i],brick_w,brick_h) then
+		if not(bricks[i].brk) and check_collision(bricks[i].x,bricks[i].y,brick_w,brick_h) then
 		-- no collision if megaball
-			if powerup!=1 or bricks_type[i]=="i" then
+			if powerup!=1 or bricks[i].t=="i" then
 			-- check direction
-				if collision_direction(x,y,dx,dy,bricks_x[i],bricks_y[i],brick_w,brick_h) then
+				if collision_direction(x,y,dx,dy,bricks[i].x,bricks[i].y,brick_w,brick_h) then
 					dx=-dx
 				else
 					dy=-dy

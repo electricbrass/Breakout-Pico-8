@@ -3,18 +3,13 @@
 brick_w=9
 brick_h=4
 brick_clr=6
-brick_brk=false
 
 --create the bricks
 function buildbricks(lvl)
 	local i,j,o,chcr,last
 	local brick_y=20
-	bricks_x={}
-	bricks_y={}
-	--is brick broken
-	bricks_brk={}
-	--brick type
-	bricks_type={}
+	bricks={}
+	-- brick types
 	-- b - normal
 	-- x - empty
 	-- i - indestructible
@@ -55,41 +50,44 @@ function buildbricks(lvl)
 end
 
 function addbrick(bi,bt)
-	add(bricks_x,4+((bi-1)%11)*(brick_w+2))
-	add(bricks_y,20+flr((bi-1)/11)*(brick_h+2))
-	add(bricks_brk,false)
-	add(bricks_type,bt)
+	local _b = {
+		x = 4+((bi-1)%11)*(brick_w+2),
+		y = 20+flr((bi-1)/11)*(brick_h+2),
+		brk = false,
+		t = bt
+	}
+	add(bricks, _b)
 end
 
 function draw_brick()
-	for i=1,#bricks_x do
-		if bricks_type[i]=="b" then
+	for i=1,#bricks do
+		if bricks[i].t=="b" then
 			brick_clr=6
-		elseif bricks_type[i]=="h" then
+		elseif bricks[i].t=="h" then
 			brick_clr=13
-		elseif bricks_type[i]=="i" then
+		elseif bricks[i].t=="i" then
 			brick_clr=0
-		elseif bricks_type[i]=="e" then
+		elseif bricks[i].t=="e" then
 			brick_clr=9
-		elseif bricks_type[i]=="p" then
+		elseif bricks[i].t=="p" then
 			brick_clr=14
-		elseif bricks_type[i]=="z" then
+		elseif bricks[i].t=="z" then
 			brick_clr=8
-		elseif bricks_type[i]=="zz" then
+		elseif bricks[i].t=="zz" then
 			brick_clr=8
-		elseif bricks_type[i]=="zzz" then
+		elseif bricks[i].t=="zzz" then
 			brick_clr=8
 		end
-		if not(bricks_brk[i]) then
-			rectfill(bricks_x[i],bricks_y[i],brick_w+bricks_x[i],brick_h+bricks_y[i],brick_clr)
+		if not(bricks[i].brk) then
+			rectfill(bricks[i].x,bricks[i].y,brick_w+bricks[i].x,brick_h+bricks[i].y,brick_clr)
 		end
 	end
 end
 
 function levelfinished()
-	for i=1,#bricks_brk do
-		if not(bricks_brk[i]) and
-		not(bricks_type[i]=="i") then
+	for i=1,#bricks do
+		if not(bricks[i].brk) and
+		not(bricks[i].t=="i") then
 			return false
 		end
 	end
@@ -97,69 +95,69 @@ function levelfinished()
 end
 
 function hitbrick(_i,_combo)
-	if bricks_type[_i]=="b" then
+	if bricks[_i].t=="b" then
 		sfx(3+combo)
 		if _combo then
 			points+=10*combo*mult
 			combo=mid(1,combo+1,7)
 		end
-		bricks_brk[_i]=true
-	elseif bricks_type[_i]=="h" then
+		bricks[_i].brk=true
+	elseif bricks[_i].t=="h" then
 		if powerup==1 then
 			sfx(3+combo)
 			if _combo then
 				points+=10*combo*mult
 				combo=mid(1,combo+1,7)
 			end
-			bricks_brk[_i]=true
+			bricks[_i].brk=true
 		else
 			sfx(12)
-			bricks_type[_i]="b"
+			bricks[_i].t="b"
 		end
-	elseif bricks_type[_i]=="i" then
+	elseif bricks[_i].t=="i" then
 		sfx(12)
-	elseif bricks_type[_i]=="e" then
+	elseif bricks[_i].t=="e" then
 		sfx(3+combo)
 		if _combo then
 			points+=10*combo*mult
 			combo=mid(1,combo+1,7)
 		end
-		bricks_type[_i]="zzz"
+		bricks[_i].t="zzz"
 		--explode
-	elseif bricks_type[_i]=="p" then
+	elseif bricks[_i].t=="p" then
 		sfx(3+combo)
 		if _combo then
 			points+=10*combo*mult
 			combo=mid(1,combo+1,7)
 		end
-		bricks_brk[_i]=true
+		bricks[_i].brk=true
 		--spawn powerup
-		spawn_pwp(bricks_x[_i],bricks_y[_i])
+		spawn_pwp(bricks[_i].x,bricks[_i].y)
 	end
 end
 
 function checkexplosions()
-	for i=1,#bricks_x do
-		if bricks_type[i]=="z"
- 		and not(bricks_brk[i]) then
+	for i=1,#bricks do
+		if bricks[i].t=="z"
+ 		and not(bricks[i].brk) then
  			explodebrick(i)
- 		elseif bricks_type[i]=="zzz"
- 		and not(bricks_brk[i]) then
- 			bricks_type[i]="zz"
-	 	elseif bricks_type[i]=="zz"
- 		and not(bricks_brk[i]) then
- 	 	bricks_type[i]="z"
+ 		elseif bricks[i].t=="zzz"
+ 		and not(bricks[i].brk) then
+ 			bricks[i].t="zz"
+	 	elseif bricks[i].t=="zz"
+ 		and not(bricks[i].brk) then
+ 	 	bricks[i].t="z"
  		end
  	end
 end
 
 function explodebrick(_i)
-	bricks_brk[_i]=true
-	for j=1,#bricks_x do
+	bricks[_i].brk=true
+	for j=1,#bricks do
  		if j!=_i
- 		and not(bricks_brk[j])
- 		and abs(bricks_x[j]-bricks_x[_i]) <= brick_w+2
- 		and abs(bricks_y[j]-bricks_y[_i]) <= brick_h+2 then
+ 		and not(bricks[j].brk)
+ 		and abs(bricks[j].x-bricks[_i].x) <= brick_w+2
+ 		and abs(bricks[j].y-bricks[_i].y) <= brick_h+2 then
  	 	hitbrick(j,false)
  		end
  	end
