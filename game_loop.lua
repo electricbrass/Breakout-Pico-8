@@ -35,19 +35,22 @@ function _init()
 	levels[3]="bxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbx"
 	levels[1]="bxhxixexp"
 	levels[1]="i999999bbbhhhppee"
-	levels[1]="e9999999"
-	levels[1]="p999"
+--	levels[1]="e9999999"
+--	levels[1]="p999"
 --	levels[1]="b9bi9ii9ii9ibxxxxxb"
+	levels[1]="i99bi9999"
 end
 
 function serveball()
-	x=pad_x+flr(pad_w0/2)
-	y=117
-	dx=1
-	dy=-1
+	balls={ newball() }
+
+	balls[1].x=pad_x+flr(pad_w0/2)
+	balls[1].y=117
+	balls[1].dx=1
+	balls[1].dy=-1
+	balls[1].ang=1
 	sticky=true
 	last_dir="right"
-	angle=1
 	powerups={}
 	powerup=0
 	powerup_t=0
@@ -62,77 +65,10 @@ function update_game()
 		sticky=false
 		powerup=0
 	end
-	if sticky then
-		if last_dir=="right" then
-			dx=1
-		else
-			dx=-1
-		end
-		x=pad_x+offset
-		x=mid(0+rad,x,127-rad)
-	--	x_prev=x
-	--	y_prev=pad_y-3
-	else
-		
-		--check if hit pad
-		if check_collision(pad_x,pad_y,pad_w,pad_h) then
-			-- check direction
-			if collision_direction(x+dx,y+dy,dx,dy,pad_x,pad_y,pad_w,pad_h) then
-				dx=-dx
-				if x<pad_x+(pad_w/2) then
-					x=pad_x-rad
-				else
-					x=pad_x+pad_w+rad
-				end
-			else
-				dy=-dy
-				--bottom
-				if y>pad_y then
-					y=pad_y+pad_h+rad
-				else
-				 --top
-					y=pad_y-rad
-					--change angle
-					if abs(pad_dx)>2 then
-					 --	flatten angle
-						if sgn(pad_dx)==sgn(dx) then
-							change_angle(mid(0,angle-1,2))
-						else
-							--raise angle
-							if angle==2 then
-								dx=-dx
-							else
-								change_angle(mid(0,angle+1,2))
-							end
-						end
-					end
-				end
-			end
-			sfx(1)
-			combo=1
-			if powerup==2 and dy<0 then
-				sticky=true
-				powerup=0
-				offset=x-pad_x
-			end
-		end
-		move_ball()
-	end
-	for i=1,#bricks do
-		-- check if hit brick
-		if not(bricks[i].brk) and check_collision(bricks[i].x,bricks[i].y,brick_w,brick_h) then
-		-- no collision if megaball
-			if powerup!=1 or bricks[i].t=="i" then
-			-- check direction
-				if collision_direction(x,y,dx,dy,bricks[i].x,bricks[i].y,brick_w,brick_h) then
-					dx=-dx
-				else
-					dy=-dy
-				end
-			end
-			hitbrick(i,true)
-			break
-		end
+	for ball in all(balls) do
+		update_ball(ball)
+	-- for i=#balls, 1, -1 do
+	-- 	update_ball(balls[i])
 	end
 	checkexplosions()
 	if levelfinished() then
@@ -145,16 +81,20 @@ end
 function draw_game()
 	cls(12)
 	rectfill(0,0,128,6,8)
-	print("lives:"..lives,1,1,7)
-	print("score:"..points,40,1,7)
-	print("combo:"..combo.."x",85,1,7)
+	if debug then
+		print("debug:"..debug, 1, 1, 7)
+	else
+		print("lives:"..lives,1,1,7)
+		print("score:"..points,40,1,7)
+		print("combo:"..combo.."x",85,1,7)
+	end
 	draw_ball()
 	draw_paddle()
 	draw_brick()
 	drawpickups()
 	-- serve preview
 	if sticky then
-		line(x+dx*4,y+dy*4,x+dx*7,y+dy*7,10)
+		line(balls[1].x+balls[1].dx*4,balls[1].y+balls[1].dy*4,balls[1].x+balls[1].dx*7,balls[1].y+balls[1].dy*7,10)
 	end
 end
 
