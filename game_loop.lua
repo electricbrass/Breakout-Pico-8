@@ -66,7 +66,7 @@ function update_game()
 		if last_dir=="right" then
 			dx=1
 		else
-		 dx=-1
+			dx=-1
 		end
 		x=pad_x+offset
 		x=mid(0+rad,x,127-rad)
@@ -80,7 +80,7 @@ function update_game()
 			if collision_direction(x+dx,y+dy,dx,dy,pad_x,pad_y,pad_w,pad_h) then
 				dx=-dx
 				if x<pad_x+(pad_w/2) then
-				 x=pad_x-rad
+					x=pad_x-rad
 				else
 					x=pad_x+pad_w+rad
 				end
@@ -88,7 +88,7 @@ function update_game()
 				dy=-dy
 				--bottom
 				if y>pad_y then
-				 y=pad_y+pad_h+rad
+					y=pad_y+pad_h+rad
 				else
 				 --top
 					y=pad_y-rad
@@ -111,9 +111,9 @@ function update_game()
 			sfx(1)
 			combo=1
 			if powerup==2 and dy<0 then
-			 sticky=true
-			 powerup=0
-			 offset=x-pad_x
+				sticky=true
+				powerup=0
+				offset=x-pad_x
 			end
 		end
 		move_ball()
@@ -182,7 +182,7 @@ function nextlevel()
 	levelnum+=1
 	if levelnum > #levels then
 		gamestate="start"
-	 return
+		return
 	end
 	pad_x=52
 	pad_dx=0

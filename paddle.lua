@@ -16,15 +16,15 @@ function draw_paddle()
 end
 
 function move_paddle()
- if powerup==3 then
-  pad_w=32
- elseif powerup==7 then
-  pad_w=16
-  mult=2
- else
-  pad_w=pad_w0
-  mult=1
- end
+	if powerup==3 then
+		pad_w=32
+	elseif powerup==7 then
+		pad_w=16
+		mult=2
+	else
+		pad_w=pad_w0
+		mult=1
+	end
 	if btn(1) then
 		pad_dx=3
 		last_dir="right"

@@ -7,7 +7,7 @@ brick_brk=false
 
 --create the bricks
 function buildbricks(lvl)
- local i,j,o,chcr,last
+	local i,j,o,chcr,last
 	local brick_y=20
 	bricks_x={}
 	bricks_y={}
@@ -23,34 +23,34 @@ function buildbricks(lvl)
 	-- p - powerup brick
 	j=0
 	for i=1,#lvl do
-	 j+=1
-	 chcr=sub(lvl,i,i)
-	 if chcr=="b"
-	 or chcr=="i"
-	 or chcr=="h"
-	 or chcr=="e"
-	 or chcr=="p" then
-	 	last=chcr
-	 	addbrick(j,last)
-	 elseif chcr=="x" then
-	 	last="x"
-	 elseif chcr=="/" then
-	 	j=(flr((j-1)/11)+1)*11
-	 elseif chcr>="0" and chcr<="9" then
-		 for o=1,chcr+0 do
-    if last=="b"
-    or last=="i"
-			 or last=="h"
-			 or last=="e"
-			 or last=="p" then
+		j+=1
+		chcr=sub(lvl,i,i)
+		if chcr=="b"
+		or chcr=="i"
+		or chcr=="h"
+		or chcr=="e"
+		or chcr=="p" then
+	 		last=chcr
+	 		addbrick(j,last)
+		elseif chcr=="x" then
+	 		last="x"
+		elseif chcr=="/" then
+	 		j=(flr((j-1)/11)+1)*11
+		elseif chcr>="0" and chcr<="9" then
+			for o=1,chcr+0 do
+    			if last=="b"
+    			or last=="i"
+				or last=="h"
+				or last=="e"
+				or last=="p" then
 					addbrick(j,last)
-			 elseif last=="x" then
-     --nothing
-    end
-    j+=1
-   end
- 	 j-=1
- 	end
+			 	elseif last=="x" then
+    			--nothing
+    			end
+    			j+=1
+   			end
+ 	 		j-=1
+ 		end
 	end
 end
 
@@ -139,28 +139,28 @@ function hitbrick(_i,_combo)
 end
 
 function checkexplosions()
- for i=1,#bricks_x do
-	 if bricks_type[i]=="z"
- 	and not(bricks_brk[i]) then
- 		explodebrick(i)
- 	elseif bricks_type[i]=="zzz"
- 	and not(bricks_brk[i]) then
- 		bricks_type[i]="zz"
-	 elseif bricks_type[i]=="zz"
- 	and not(bricks_brk[i]) then
- 	 bricks_type[i]="z"
+	for i=1,#bricks_x do
+		if bricks_type[i]=="z"
+ 		and not(bricks_brk[i]) then
+ 			explodebrick(i)
+ 		elseif bricks_type[i]=="zzz"
+ 		and not(bricks_brk[i]) then
+ 			bricks_type[i]="zz"
+	 	elseif bricks_type[i]=="zz"
+ 		and not(bricks_brk[i]) then
+ 	 	bricks_type[i]="z"
+ 		end
  	end
- end
 end
 
 function explodebrick(_i)
- bricks_brk[_i]=true
- for j=1,#bricks_x do
- 	if j!=_i
- 	and not(bricks_brk[j])
- 	and abs(bricks_x[j]-bricks_x[_i]) <= brick_w+2
- 	and abs(bricks_y[j]-bricks_y[_i]) <= brick_h+2 then
- 	 hitbrick(j,false)
+	bricks_brk[_i]=true
+	for j=1,#bricks_x do
+ 		if j!=_i
+ 		and not(bricks_brk[j])
+ 		and abs(bricks_x[j]-bricks_x[_i]) <= brick_w+2
+ 		and abs(bricks_y[j]-bricks_y[_i]) <= brick_h+2 then
+ 	 	hitbrick(j,false)
+ 		end
  	end
- end
 end

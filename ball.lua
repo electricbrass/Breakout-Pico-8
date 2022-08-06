@@ -53,46 +53,46 @@ function check_collision(obj_x,obj_y,obj_w,obj_h)
 end
 
 function collision_direction(bx,by,bdx,bdy,tx,ty,tw,th)
- local slp
- if not(bdx==0) then
- 	slp = bdy / bdx
- else
- 	slp = nil
- end
- local cx, cy
- if bdx == 0 then
-  return false
- elseif bdy == 0 then
-  return true
- elseif slp > 0 and bdx > 0 then
-  cx = tx - bx
-  cy = ty - by
-  return cx > 0 and cy/cx < slp
- elseif slp < 0 and bdx > 0 then
-	 cx = tx - bx
-  cy = ty + th - by
-  return cx > 0 and cy/cx >= slp
- elseif slp > 0 and bdx < 0 then
-  cx = tx + tw - bx
-  cy = ty + th - by
-  return cx < 0 and cy/cx <= slp
- else
- 	cx = tx + tw - bx
-  cy = ty - by
-  return cx < 0 and cy/cx >= slp
- end
+	local slp
+	if not(bdx==0) then
+ 		slp = bdy / bdx
+ 	else
+ 		slp = nil
+ 	end
+ 	local cx, cy
+ 	if bdx == 0 then
+  		return false
+ 	elseif bdy == 0 then
+  		return true
+ 	elseif slp > 0 and bdx > 0 then
+  		cx = tx - bx
+  		cy = ty - by
+  		return cx > 0 and cy/cx < slp
+ 	elseif slp < 0 and bdx > 0 then
+	 	cx = tx - bx
+  		cy = ty + th - by
+  		return cx > 0 and cy/cx >= slp
+ 	elseif slp > 0 and bdx < 0 then
+  		cx = tx + tw - bx
+  		cy = ty + th - by
+  		return cx < 0 and cy/cx <= slp
+ 	else
+ 		cx = tx + tw - bx
+  		cy = ty - by
+  		return cx < 0 and cy/cx >= slp
+ 	end
 end
 
 function change_angle(ang)
- angle=ang
- if ang==0 then
- 	dx=sgn(dx)*1.3
- 	dy=sgn(dy)*0.5
- elseif ang==2 then
- 	dx=sgn(dx)*0.5
- 	dy=sgn(dy)*1.3
- else
- 	dx=sgn(dx)
- 	dy=sgn(dy)
- end
+	angle=ang
+ 	if ang==0 then
+ 		dx=sgn(dx)*1.3
+ 		dy=sgn(dy)*0.5
+	elseif ang==2 then
+ 		dx=sgn(dx)*0.5
+ 		dy=sgn(dy)*1.3
+	else
+ 		dx=sgn(dx)
+ 		dy=sgn(dy)
+ 	end
 end

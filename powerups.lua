@@ -32,19 +32,19 @@ function spawn_pwp(_x,_y)
 end
 
 function move_pwp()
- for i=1, #pwp_x do
-  if pwp_v[i] then
-  	pwp_y[i]+=0.5
-  	if pwp_y[i] > 128 then
-  		pwp_v[i]=false
-  	end
-  	if check_collision2(pad_x,pad_y,pad_w,pad_h,pwp_x[i],pwp_y[i]-0.5,8,8) then
+	for i=1, #pwp_x do
+		if pwp_v[i] then
+  			pwp_y[i]+=0.5
+  			if pwp_y[i] > 128 then
+  				pwp_v[i]=false
+  			end
+  			if check_collision2(pad_x,pad_y,pad_w,pad_h,pwp_x[i],pwp_y[i]-0.5,8,8) then
 				pwp_v[i]=false
 				sfx(13)
 				pwp_get(pwp_t[i])
 			end
-  end
- end
+		end
+	end
 end
 
 function pwp_get(_t)
