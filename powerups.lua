@@ -8,41 +8,36 @@
 -- 7 - small paddle
 
 function resetpickups()
-	pwp_x={}
-	pwp_y={}
-	pwp_v={}
-	pwp_t={}
+	powerups = {}
 end
 
 function drawpickups()
-	for i=1,#pwp_x do
-		if pwp_v[i] then
-			spr(pwp_t[i],pwp_x[i],pwp_y[i])
-		end
+	for i=1,#powerups do
+		spr(powerups[i].t,powerups[i].x,powerups[i].y)
 	end
 end
 
 function spawn_pwp(_x,_y)
 	local _t = flr(rnd(7)) + 1
-	_t = 1
-	pwp_x[#pwp_x+1]=_x+1
-	pwp_y[#pwp_x]=_y
-	pwp_t[#pwp_x]=_t
-	pwp_v[#pwp_x]=true
+	local _powerup = {
+		x = _x,
+		y = _y,
+		t = _t,
+	}
+	add(powerups, _powerup)
+	-- uncomment to set specific powerup instead of random
+	-- _t = 1
 end
 
 function move_pwp()
-	for i=1, #pwp_x do
-		if pwp_v[i] then
-  			pwp_y[i]+=0.5
-  			if pwp_y[i] > 128 then
-  				pwp_v[i]=false
-  			end
-  			if check_collision2(pad_x,pad_y,pad_w,pad_h,pwp_x[i],pwp_y[i]-0.5,8,8) then
-				pwp_v[i]=false
-				sfx(13)
-				pwp_get(pwp_t[i])
-			end
+	for i=#powerups, 1, -1 do
+  		powerups[i].y+=0.5
+  		if powerups[i].y > 128 then
+			del(powerups, powerups[i])
+  		elseif check_collision2(pad_x,pad_y,pad_w,pad_h,powerups[i].x,powerups[i].y-0.5,8,8) then
+			sfx(13)
+			pwp_get(powerups[i].t)
+			del(powerups, powerups[i])
 		end
 	end
 end
