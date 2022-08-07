@@ -16,7 +16,8 @@ end
 function spawn_pwp(_x,_y)
 	local _t = flr(rnd(7)) + 1
 	-- uncomment to set specific powerup instead of random
-	 _t = 6
+	--nums = {2, 6}
+	--_t = rnd(nums)
 	local _powerup = {
 		x = _x,
 		y = _y,
@@ -46,8 +47,9 @@ function pwp_get(_t)
 		powerup_t=900
 	elseif _t == 2 then
 		-- sticky
-		powerup=2
-		powerup_t=600
+		if not hasstuck then
+			sticky=true
+		end
 	elseif _t == 3 then
 		-- expand
 		powerup=3
@@ -62,7 +64,8 @@ function pwp_get(_t)
 		lives+=1
 	elseif _t == 6 then
 		-- multi
-		powerup=6
+		-- not sure why releasing
+		releasestuck()
 		multiball()
 	elseif _t == 7 then
 		-- reduce

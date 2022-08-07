@@ -6,6 +6,9 @@ y_prev=0
 
 function draw_ball()
 	for ball in all(balls) do
+		if ball.stuck then
+			line(ball.x+ball.dx*4,ball.y+ball.dy*4,ball.x+ball.dx*7,ball.y+ball.dy*7,10)
+		end
 		circfill(ball.x,ball.y,rad,clr)
 	end
 end
@@ -104,35 +107,46 @@ end
 
 function newball()
 	local b = {
-		x   = 0,
-		y   = 0,
-		dx  = 0,
-		dy  = 0,
-		ang = 0
+		x     = 0,
+		y     = 0,
+		dx    = 0,
+		dy    = 0,
+		ang   = 0,
+		stuck = false
 	}
 	return b
 end
 
 function copyball(ball)
 	local b = {
-		x = ball.x,
-		y = ball.y,
-		dx = ball.dx,
-		dy = ball.dy,
-		ang = ball.ang
+		x     = ball.x,
+		y     = ball.y,
+		dx    = ball.dx,
+		dy    = ball.dy,
+		ang   = ball.ang,
+		stuck = ball.stuck
 	}
 	return b
 end
 
+function releasestuck()
+	for ball in all(balls) do
+		ball.stuck = false
+	end
+end
+
 function update_ball(ball)
-	if sticky then
+	if ball.stuck then
 		if last_dir=="right" then
-			balls[1].dx=1
+			ball.dx=abs(ball.dx)
 		else
-			balls[1].dx=-1
+			ball.dx=-abs(ball.dx)
 		end
-		balls[1].x=pad_x+offset
-		balls[1].x=mid(0+rad,balls[1].x,127-rad)
+		ball.x=pad_x+offset
+		ball.x=mid(0+rad,ball.x,127-rad)
+		if ball.x-pad_x != offset then
+			offset = ball.x - pad_x
+		end
 	--	x_prev=x
 	--	y_prev=pad_y-3
 	else
@@ -173,8 +187,10 @@ function update_ball(ball)
 			end
 			sfx(1)
 			combo=1
-			if powerup==2 and dy<0 then
-				sticky=true
+			if sticky and ball.dy<0 then
+				sticky=false
+				hasstuck=true
+				ball.stuck=true
 				powerup=0
 				offset=ball.x-pad_x
 			end
@@ -200,6 +216,7 @@ function update_ball(ball)
 end
 
 function multiball()
+	--maybe make do random ball to split, only 2 balls, random angle
 	if #balls > 2 then
 		return
 	end

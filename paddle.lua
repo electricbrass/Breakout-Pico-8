@@ -10,7 +10,7 @@ last_dir="right"
 
 function draw_paddle()
 	rectfill(pad_x,pad_y,pad_x+pad_w,pad_y+pad_h,pad_clr)
-	if powerup==2 then
+	if sticky then
 		line(pad_x,pad_y,pad_x+pad_w,pad_y,11)
 	end
 end

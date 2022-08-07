@@ -26,7 +26,6 @@ end
 function _init()
 	cls(0)
 	gamestate="start"
-	sticky=true
 	combo=1
 	levelnum=1
 	levels={}
@@ -44,26 +43,27 @@ end
 
 function serveball()
 	balls={ newball() }
-
+	sticky=false
 	balls[1].x=pad_x+flr(pad_w0/2)
 	balls[1].y=117
 	balls[1].dx=1
 	balls[1].dy=-1
 	balls[1].ang=1
-	sticky=true
+	balls[1].stuck=true
+	hasstuck=true
 	last_dir="right"
 	powerups={}
 	powerup=0
 	powerup_t=0
 	offset=flr(pad_w0/2)
-	mult=0
 end
 
 function update_game()
 	move_paddle()
 	move_pwp()
-	if sticky and btnp(5) then
-		sticky=false
+	if btnp(5) then
+		releasestuck()
+		hasstuck=false
 		powerup=0
 	end
 	for ball in all(balls) do
@@ -93,10 +93,6 @@ function draw_game()
 	draw_paddle()
 	draw_brick()
 	drawpickups()
-	-- serve preview
-	if sticky then
-		line(balls[1].x+balls[1].dx*4,balls[1].y+balls[1].dy*4,balls[1].x+balls[1].dx*7,balls[1].y+balls[1].dy*7,10)
-	end
 end
 
 function draw_start()
