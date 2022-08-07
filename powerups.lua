@@ -15,14 +15,14 @@ end
 
 function spawn_pwp(_x,_y)
 	local _t = flr(rnd(7)) + 1
+	-- uncomment to set specific powerup instead of random
+	 _t = 6
 	local _powerup = {
 		x = _x,
 		y = _y,
 		t = _t,
 	}
 	add(powerups, _powerup)
-	-- uncomment to set specific powerup instead of random
-	-- _t = 1
 end
 
 function move_pwp()
@@ -63,6 +63,7 @@ function pwp_get(_t)
 	elseif _t == 6 then
 		-- multi
 		powerup=6
+		multiball()
 	elseif _t == 7 then
 		-- reduce
 		powerup=7

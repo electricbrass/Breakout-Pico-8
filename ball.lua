@@ -32,7 +32,8 @@ function move_ball(ball)
 	end
 	if  ball.y+rad>=131 then
 		del(balls, ball)
-		if #ball < 1 then
+		-- play a sound effect
+		if #balls < 1 then
 			lose_life()
 		end
 		combo=1
@@ -112,6 +113,17 @@ function newball()
 	return b
 end
 
+function copyball(ball)
+	local b = {
+		x = ball.x,
+		y = ball.y,
+		dx = ball.dx,
+		dy = ball.dy,
+		ang = ball.ang
+	}
+	return b
+end
+
 function update_ball(ball)
 	if sticky then
 		if last_dir=="right" then
@@ -184,5 +196,25 @@ function update_ball(ball)
 			hitbrick(i,true)
 			break
 		end
+	end
+end
+
+function multiball()
+	if #balls > 2 then
+		return
+	end
+	local b2 = copyball(balls[1])
+	local b3 = copyball(balls[1])
+	add(balls, b2)
+	add(balls, b3)
+	if balls[1].ang == 0 then
+		change_angle(b2, 1)
+		change_angle(b3, 2)
+	elseif balls[1].ang == 1 then
+		change_angle(b2, 0)
+		change_angle(b3, 2)
+	else
+		change_angle(b2, 0)
+		change_angle(b3, 1)
 	end
 end

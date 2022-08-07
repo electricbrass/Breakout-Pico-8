@@ -36,9 +36,10 @@ function _init()
 	levels[1]="bxhxixexp"
 	levels[1]="i999999bbbhhhppee"
 --	levels[1]="e9999999"
---	levels[1]="p999"
+	levels[1]="p999"
 --	levels[1]="b9bi9ii9ii9ibxxxxxb"
-	levels[1]="i99bi9999"
+--	levels[1]="i99bi9999"
+--	levels[1]="b9bb9bb9bxxxpxxx"
 end
 
 function serveball()
