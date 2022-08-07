@@ -147,13 +147,13 @@ function update_ball(ball)
 					if abs(pad_dx)>2 then
 					 --	flatten angle
 						if sgn(pad_dx)==sgn(ball.dx) then
-							change_angle(mid(0,angle-1,2))
+							change_angle(ball, mid(0,ball.ang-1,2))
 						else
 							--raise angle
 							if ball.ang==2 then
 								ball.dx=-ball.dx
 							else
-								change_angle(mid(0,ball.ang+1,2))
+								change_angle(ball, mid(0,ball.ang+1,2))
 							end
 						end
 					end
