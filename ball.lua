@@ -147,6 +147,7 @@ function update_ball(ball)
 		if ball.x-pad_x != offset then
 			offset = ball.x - pad_x
 		end
+		ball.y = pad_y - 3
 	--	x_prev=x
 	--	y_prev=pad_y-3
 	else
@@ -229,11 +230,14 @@ function multiball()
 		change_angle(b2, 2)
 		--change_angle(b3, 2)
 	elseif brand.ang == 1 then
-		change_angle(brand,0)
+		if (!brand.stuck) then
+			change_angle(brand,0)
+		end
 		change_angle(b2, 2)
 		--change_angle(b3, 2)
 	else
 		change_angle(b2, 0)
 		--change_angle(b3, 1)
 	end
+	b2.stuck = false
 end

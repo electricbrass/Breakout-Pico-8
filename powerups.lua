@@ -65,7 +65,7 @@ function pwp_get(_t)
 	elseif _t == 6 then
 		-- multi
 		-- not sure why releasing
-		releasestuck()
+		-- releasestuck()
 		multiball()
 	elseif _t == 7 then
 		-- reduce
