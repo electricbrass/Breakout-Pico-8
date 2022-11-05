@@ -16,9 +16,9 @@ function draw_paddle()
 end
 
 function move_paddle()
-	if powerup==3 then
+	if t_expand > 0 then
 		pad_w=32
-	elseif powerup==7 then
+	elseif t_reduce > 0 then
 		pad_w=16
 		mult=2
 	else

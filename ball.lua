@@ -9,6 +9,11 @@ function draw_ball()
 		if ball.stuck then
 			line(ball.x+ball.dx*4,ball.y+ball.dy*4,ball.x+ball.dx*7,ball.y+ball.dy*7,10)
 		end
+		if t_mega > 0 then
+			clr = 8
+		else
+			clr = 10
+		end
 		circfill(ball.x,ball.y,rad,clr)
 	end
 end
@@ -18,7 +23,7 @@ function move_ball(ball)
 	--updates ball position
 --	x_prev=x
 --	y_prev=y
-	if powerup==4 then
+	if t_speed > 0 then
 		ball.x=mid(0+rad,x+(dx/2),127-rad)
 		ball.y+=(dy/2)
 	else
@@ -192,7 +197,6 @@ function update_ball(ball)
 				sticky=false
 				hasstuck=true
 				ball.stuck=true
-				powerup=0
 				offset=ball.x-pad_x
 			end
 		end
@@ -202,7 +206,7 @@ function update_ball(ball)
 		-- check if hit brick
 		if not(bricks[i].brk) and check_collision(ball,bricks[i].x,bricks[i].y,brick_w,brick_h) then
 		-- no collision if megaball
-			if powerup!=1 or bricks[i].t=="i" then
+			if t_mega <= 0 or bricks[i].t=="i" then
 			-- check direction
 				if collision_direction(ball.x,ball.y,ball.dx,ball.dy,bricks[i].x,bricks[i].y,brick_w,brick_h) then
 					ball.dx=-ball.dx

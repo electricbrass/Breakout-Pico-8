@@ -103,7 +103,7 @@ function hitbrick(_i,_combo)
 		end
 		bricks[_i].brk=true
 	elseif bricks[_i].t=="h" then
-		if powerup==1 then
+		if t_mega > 0 then
 			sfx(3+combo)
 			if _combo then
 				points+=10*combo*mult

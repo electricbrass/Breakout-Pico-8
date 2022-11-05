@@ -40,11 +40,9 @@ function move_pwp()
 end
 
 function pwp_get(_t)
-	powerup_t=0
 	if _t == 1 then
 		-- mega
-		powerup=1
-		powerup_t=900
+		t_mega=900
 	elseif _t == 2 then
 		-- sticky
 		if not hasstuck then
@@ -52,15 +50,13 @@ function pwp_get(_t)
 		end
 	elseif _t == 3 then
 		-- expand
-		powerup=3
-		powerup_t=600
+		t_expand=600
+		t_reduce=0
 	elseif _t == 4 then
 		-- speed
-		powerup=4
-		powerup_t=900
+		t_speed=900
 	elseif _t == 5 then
 		-- life
-		powerup=0
 		lives+=1
 	elseif _t == 6 then
 		-- multi
@@ -69,18 +65,16 @@ function pwp_get(_t)
 		multiball()
 	elseif _t == 7 then
 		-- reduce
-		powerup=7
-		powerup_t=400
+		t_reduce=400
+		t_expand=0
 	end
 end
 
 function timer()
-	if powerup!=0 then
-		powerup_t-=1
-		if powerup_t<=0 then
-			powerup=0
-		end
-	end
+	t_mega = max(t_mega - 1, 0)
+	t_speed = max(t_speed - 1, 0)
+	t_expand = max(t_expand - 1, 0)
+	t_t_reduce = max(t_reduce - 1, 0)
 end
 
 function check_collision2(obj_x,obj_y,obj_w,obj_h,obj2_x,obj2_y,obj2_w,obj2_h)

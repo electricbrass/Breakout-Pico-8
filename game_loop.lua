@@ -53,8 +53,10 @@ function serveball()
 	hasstuck=true
 	last_dir="right"
 	powerups={}
-	powerup=0
-	powerup_t=0
+	t_reduce = 0
+	t_expand = 0
+	t_speed = 0
+	t_mega = 0
 	offset=flr(pad_w0/2)
 end
 
@@ -64,7 +66,6 @@ function update_game()
 	if btnp(5) then
 		releasestuck()
 		hasstuck=false
-		powerup=0
 	end
 	for ball in all(balls) do
 		update_ball(ball)
