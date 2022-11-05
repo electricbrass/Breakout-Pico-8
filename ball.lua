@@ -219,6 +219,7 @@ end
 function multiball()
 	--maybe make do random ball to split, only 2 balls, random angle
 	if #balls > 2 then
+		points+=50
 		return
 	end
 	local brand = rnd(balls)
@@ -230,7 +231,7 @@ function multiball()
 		change_angle(b2, 2)
 		--change_angle(b3, 2)
 	elseif brand.ang == 1 then
-		if (!brand.stuck) then
+		if not brand.stuck then
 			change_angle(brand,0)
 		end
 		change_angle(b2, 2)
