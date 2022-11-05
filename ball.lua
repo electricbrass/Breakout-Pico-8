@@ -220,18 +220,20 @@ function multiball()
 	if #balls > 2 then
 		return
 	end
-	local b2 = copyball(balls[1])
-	local b3 = copyball(balls[1])
+	local brand = rnd(balls)
+	local b2 = copyball(brand)
+	-- local b3 = copyball(balls[1])
 	add(balls, b2)
-	add(balls, b3)
-	if balls[1].ang == 0 then
-		change_angle(b2, 1)
-		change_angle(b3, 2)
-	elseif balls[1].ang == 1 then
-		change_angle(b2, 0)
-		change_angle(b3, 2)
+	-- add(balls, b3)
+	if brand.ang == 0 then
+		change_angle(b2, 2)
+		--change_angle(b3, 2)
+	elseif brand.ang == 1 then
+		change_angle(brand,0)
+		change_angle(b2, 2)
+		--change_angle(b3, 2)
 	else
 		change_angle(b2, 0)
-		change_angle(b3, 1)
+		--change_angle(b3, 1)
 	end
 end
