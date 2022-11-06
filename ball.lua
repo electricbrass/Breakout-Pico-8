@@ -8,10 +8,10 @@ function draw_ball()
 	for ball in all(balls) do
 		if ball.stuck then
 			-- line(ball.x+ball.dx*4,ball.y+ball.dy*4,ball.x+ball.dx*7,ball.y+ball.dy*7,blink_2)
-			pset(ball.x+ball.dx*4,ball.y+ball.dy*4,blink_5)
-			pset(ball.x+ball.dx*5,ball.y+ball.dy*5,blink_4)
-			pset(ball.x+ball.dx*6,ball.y+ball.dy*6,blink_3)
-			pset(ball.x+ball.dx*7,ball.y+ball.dy*7,blink_2)
+			pset(ball.x+ball.dx*5,ball.y+ball.dy*5,blink_5)
+			pset(ball.x+ball.dx*7,ball.y+ball.dy*7,blink_4)
+			pset(ball.x+ball.dx*9,ball.y+ball.dy*9,blink_3)
+			pset(ball.x+ball.dx*11,ball.y+ball.dy*11,blink_2)
 		end
 		if t_mega > 0 then
 			clr = 8
@@ -204,6 +204,7 @@ function update_ball(ball)
 				sticky=false
 				hasstuck=true
 				ball.stuck=true
+				ball.x = flr(ball.x)
 				offset=ball.x-pad_x
 			end
 		end
