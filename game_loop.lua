@@ -95,7 +95,9 @@ function update_game()
 end
 
 function draw_game()
-	fadeamnt = max(fadeamnt - 0.05, 0)
+	if fadeamnt > 0 then
+		fadeamnt = max(fadeamnt - 0.05, 0)
+	end
 	cls()
 	rectfill(0,0,127,127,12)
 	rectfill(0,0,128,6,8)
