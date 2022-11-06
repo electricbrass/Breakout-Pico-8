@@ -6,6 +6,8 @@ function _update60()
 		update_start()
 	elseif gamestate=="game" then
 		update_game()
+	elseif gamestate=="gameoverwait" then
+		update_gameoverwait()
 	elseif gamestate=="gameover" then
 		update_gameover()
 	elseif gamestate=="levelover" then
@@ -20,7 +22,7 @@ function _draw()
 	end
 	if gamestate=="start" then
 		draw_start()
-	elseif gamestate=="game" then
+	elseif gamestate=="game" or gamestate=="gameoverwait" then
 		draw_game()
 	elseif gamestate=="gameover" then
 		draw_gameover()
@@ -172,7 +174,8 @@ function draw_levelover()
 end
 
 function gameover()
-	gamestate="gameover"
+	gamestate="gameoverwait"
+	govertimer = 60
 end
 
 function levelover()
@@ -183,6 +186,17 @@ function update_gameover()
 	if btnp(5) then 
 		game_start()
 	end
+end
+
+function update_gameoverwait()
+	if shkamnt <= 0 then
+		gamestate = "gameover"
+	end
+	-- govertimer -= 1
+	-- if govertimer <= 0 then
+	-- 	govertimer = -1
+	-- 	gamestate = "gameover"
+	-- end
 end
 
 function update_levelover()
