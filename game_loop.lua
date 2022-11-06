@@ -224,7 +224,6 @@ end
 
 function lose_life()
 	lives-=1
-	sfx(2)
 	if lives<0 then
 		gameover()
 	else

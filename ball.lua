@@ -45,6 +45,7 @@ function move_ball(ball)
 	end
 	if  ball.y+rad>=131 then
 		del(balls, ball)
+		sfx(2)
 		-- play a sound effect
 		if #balls < 1 then
 			lose_life()
