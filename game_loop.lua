@@ -202,6 +202,8 @@ end
 
 function update_gameoverwait()
 	if shkamnt <= 0 then
+		blink_g = 5
+		blinkframe = 0
 		gamestate = "gameover"
 	end
 	-- govertimer -= 1
