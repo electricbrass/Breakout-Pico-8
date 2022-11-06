@@ -211,22 +211,23 @@ function update_ball(ball)
 			end
 		end
 		move_ball(ball)
-	end
-	for i=1,#bricks do
-		-- check if hit brick
-		if not(bricks[i].brk) and check_collision(ball,bricks[i].x,bricks[i].y,brick_w,brick_h) then
-		-- no collision if megaball
-			if t_mega <= 0 or bricks[i].t=="i" then
-			-- check direction
-				if collision_direction(ball.x,ball.y,ball.dx,ball.dy,bricks[i].x,bricks[i].y,brick_w,brick_h) then
-					ball.dx=-ball.dx
-				else
-					ball.dy=-ball.dy
+		for i=1,#bricks do
+			-- check if hit brick
+			if not(bricks[i].brk) and check_collision(ball,bricks[i].x,bricks[i].y,brick_w,brick_h) then
+			-- no collision if megaball
+				if t_mega <= 0 or bricks[i].t=="i" then
+				-- check direction
+					if collision_direction(ball.x,ball.y,ball.dx,ball.dy,bricks[i].x,bricks[i].y,brick_w,brick_h) then
+						ball.dx=-ball.dx
+					else
+						ball.dy=-ball.dy
+					end
 				end
+				hitbrick(i,true)
+				break
 			end
-			hitbrick(i,true)
-			break
 		end
+		spawntrail(ball.x, ball.y)
 	end
 end
 

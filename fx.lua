@@ -1,4 +1,4 @@
--- effects including screen shake and particles
+-- screenshake
 
 function shakescr()
     local shx = 16 - rnd(32)
@@ -11,6 +11,8 @@ function shakescr()
         shkamnt = 0
     end
 end
+
+-- blinking effects
 
 function doblink()
     local blinkgray = {5, 13, 6, 7, 6, 13}
@@ -40,6 +42,8 @@ function getblinkcols()
     return blink_5, blink_4, blink_3, blink_2
 end
 
+-- screenfades
+
 function fadepalette(amnt)
     -- 1 is black
     -- 0 is normal
@@ -57,5 +61,42 @@ function fadepalette(amnt)
         end
         -- change palette
         pal(j, col, 1)
+    end
+end
+
+-- particles
+
+function addparticle(x, y, type, maxage, color, oldcolor)
+    local p = {}
+    p.x = x
+    p.y = y
+    p.type = type
+    p.maxage = maxage
+    p.age = 0
+    p.color = color
+    p.oldcolor = oldcolor
+    add(particles, p)
+end
+
+function spawntrail(x, y)
+    addparticle(x + sin(rnd()) * rad * 0.5, y + cos(rnd()) * rad * 0.5, 0, 10 + rnd(15), 10, 9)
+end
+
+function updateparticles()
+    for particle in all(particles) do
+        particle.age += 1
+        if particle.age > particle.maxage then
+            del(particles, particle)
+        elseif particle.age > particle.maxage / 2 then
+            particle.color = particle.oldcolor
+        end
+    end
+end
+
+function drawparticles()
+    for particle in all(particles) do
+        if particle.type == 0 then
+            pset(particle.x, particle.y, particle.color)
+        end
     end
 end

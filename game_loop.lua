@@ -1,5 +1,6 @@
 --game loop
 function _update60()
+	updateparticles()
 	doblink()
 	shakescr()
 	if gamestate=="start" then
@@ -40,6 +41,7 @@ function _init()
 	blinkindex = 1
 	blinkindex2 = 1
 	fadeamnt = 0
+	particles = {}
 	gamestate="start"
 	combo=1
 	levelnum=1
@@ -109,6 +111,7 @@ function draw_game()
 		print("score:"..points,40,1,7)
 		print("combo:"..combo.."x",85,1,7)
 	end
+	drawparticles()
 	draw_ball()
 	draw_paddle()
 	draw_brick()
@@ -151,6 +154,7 @@ function game_start()
 end
 
 function nextlevel()
+	particles = {}
 	gamestate="game"
 	levelnum+=1
 	if levelnum > #levels then
