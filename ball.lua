@@ -7,7 +7,7 @@ y_prev=0
 function draw_ball()
 	for ball in all(balls) do
 		if ball.stuck then
-			line(ball.x+ball.dx*4,ball.y+ball.dy*4,ball.x+ball.dx*7,ball.y+ball.dy*7,10)
+			line(ball.x+ball.dx*4,ball.y+ball.dy*4,ball.x+ball.dx*7,ball.y+ball.dy*7,blink_2)
 		end
 		if t_mega > 0 then
 			clr = 8

@@ -14,6 +14,7 @@ end
 
 function doblink()
     local blinkcolors = {5, 13, 6, 7, 6, 13}
+    local blinkcolors2 = {10, 9, 14, 9}
     blinkframe += 1
     if blinkframe > blinkspeed then
         blinkframe = 0
@@ -22,6 +23,11 @@ function doblink()
             blinkindex = 1
         end
         blink_g = blinkcolors[blinkindex]
+        blinkindex2 += 1
+        if blinkindex2 > #blinkcolors2 then
+            blinkindex2 = 1
+        end
+        blink_2 = blinkcolors2[blinkindex2]
     end
 end
 
