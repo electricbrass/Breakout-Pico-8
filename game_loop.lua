@@ -12,6 +12,7 @@ function _update60()
 end
 
 function _draw()
+	shakescr()
 	if gamestate=="start" then
 		draw_start()
 	elseif gamestate=="game" then
@@ -25,6 +26,7 @@ end
 
 function _init()
 	cls(0)
+	shkamnt = 0
 	gamestate="start"
 	combo=1
 	levelnum=1
@@ -34,8 +36,8 @@ function _init()
 	levels[3]="bxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbxbx"
 	levels[1]="bxhxixexp"
 	levels[1]="i999999bbbhhhppee"
---	levels[1]="e9999999"
-	levels[1]="p999"
+	-- levels[1]="e9999999"
+	-- levels[1]="p999"
 --	levels[1]="b9bi9ii9ii9ibxxxxxb"
 --	levels[1]="i99bi9999"
 --	levels[1]="b9bb9bb9bxxxpxxx"
@@ -81,7 +83,8 @@ function update_game()
 end
 
 function draw_game()
-	cls(12)
+	cls()
+	rectfill(0,0,127,127,12)
 	rectfill(0,0,128,6,8)
 	if debug then
 		print("debug:"..debug, 1, 1, 7)

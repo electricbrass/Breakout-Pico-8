@@ -161,4 +161,5 @@ function explodebrick(_i)
  	 	hitbrick(j,false)
  		end
  	end
+	shkamnt = min(0.8, shkamnt + 0.4)
 end

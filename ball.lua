@@ -43,6 +43,9 @@ function move_ball(ball)
 		-- play a sound effect
 		if #balls < 1 then
 			lose_life()
+			shkamnt = 0.4
+		else
+			shkamnt = 0.15
 		end
 		combo=1
 	end
