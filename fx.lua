@@ -13,21 +13,26 @@ function shakescr()
 end
 
 function doblink()
-    local blinkcolors = {5, 13, 6, 7, 6, 13}
-    local blinkcolors2 = {10, 9, 14, 9}
+    local blinkgray = {5, 13, 6, 7, 6, 13}
+    local blinkwarm = {10, 9, 14, 9}
     blinkframe += 1
     if blinkframe > blinkspeed then
+        -- animation of text
         blinkframe = 0
         blinkindex += 1
-        if blinkindex > #blinkcolors then
+        if blinkindex > #blinkgray then
             blinkindex = 1
         end
-        blink_g = blinkcolors[blinkindex]
+        blink_g = blinkgray[blinkindex]
+        -- animation of arrow
         blinkindex2 += 1
-        if blinkindex2 > #blinkcolors2 then
+        if blinkindex2 > #blinkwarm then
             blinkindex2 = 1
         end
-        blink_2 = blinkcolors2[blinkindex2]
+        blink_2 = blinkwarm[blinkindex2 % #blinkwarm + 1]
+        blink_3 = blinkwarm[(blinkindex2 + 1) % #blinkwarm + 1]
+        blink_4 = blinkwarm[(blinkindex2 + 2) % #blinkwarm + 1]
+        blink_5 = blinkwarm[(blinkindex2 + 3) % #blinkwarm + 1]
     end
 end
 
