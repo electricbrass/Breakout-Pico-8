@@ -14,7 +14,6 @@ end
 
 function doblink()
     local blinkgray = {5, 13, 6, 7, 6, 13}
-    local blinkwarm = {10, 9, 14, 9}
     blinkframe += 1
     if blinkframe > blinkspeed then
         -- animation of text
@@ -24,16 +23,21 @@ function doblink()
             blinkindex = 1
         end
         blink_g = blinkgray[blinkindex]
-        -- animation of arrow
         blinkindex2 += 1
-        if blinkindex2 > #blinkwarm then
+        if blinkindex2 > 4 then
             blinkindex2 = 1
         end
-        blink_2 = blinkwarm[blinkindex2 % #blinkwarm + 1]
-        blink_3 = blinkwarm[(blinkindex2 + 1) % #blinkwarm + 1]
-        blink_4 = blinkwarm[(blinkindex2 + 2) % #blinkwarm + 1]
-        blink_5 = blinkwarm[(blinkindex2 + 3) % #blinkwarm + 1]
     end
+end
+
+function getblinkcols()
+    local blinkwarm = {10, 9, 14, 9}
+    -- animation of arrow
+    local blink_2 = blinkwarm[blinkindex2 % #blinkwarm + 1]
+    local blink_3 = blinkwarm[(blinkindex2 + 1) % #blinkwarm + 1]
+    local blink_4 = blinkwarm[(blinkindex2 + 2) % #blinkwarm + 1]
+    local blink_5 = blinkwarm[(blinkindex2 + 3) % #blinkwarm + 1]
+    return blink_5, blink_4, blink_3, blink_2
 end
 
 function fadepalette(amnt)

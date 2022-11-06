@@ -8,10 +8,11 @@ function draw_ball()
 	for ball in all(balls) do
 		if ball.stuck then
 			-- line(ball.x+ball.dx*4,ball.y+ball.dy*4,ball.x+ball.dx*7,ball.y+ball.dy*7,blink_2)
-			pset(ball.x+ball.dx*5,ball.y+ball.dy*5,blink_5)
-			pset(ball.x+ball.dx*7,ball.y+ball.dy*7,blink_4)
-			pset(ball.x+ball.dx*9,ball.y+ball.dy*9,blink_3)
-			pset(ball.x+ball.dx*11,ball.y+ball.dy*11,blink_2)
+			local col1, col2, col3, col4 = getblinkcols()
+			pset(ball.x+ball.dx*5,ball.y+ball.dy*5,col1)
+			pset(ball.x+ball.dx*7,ball.y+ball.dy*7,col2)
+			pset(ball.x+ball.dx*9,ball.y+ball.dy*9,col3)
+			pset(ball.x+ball.dx*11,ball.y+ball.dy*11,col4)
 		end
 		if t_mega > 0 then
 			clr = 8

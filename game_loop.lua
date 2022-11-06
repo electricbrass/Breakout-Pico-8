@@ -38,7 +38,6 @@ function _init()
 	blinkframe = 0
 	blinkspeed = 6
 	blinkindex = 1
-	blink_2 = 10
 	blinkindex2 = 1
 	fadeamnt = 0
 	gamestate="start"
