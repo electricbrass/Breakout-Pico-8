@@ -1,5 +1,6 @@
 --game loop
 function _update60()
+	doblink()
 	if gamestate=="start" then
 		game_start()
 	elseif gamestate=="game" then
@@ -27,6 +28,10 @@ end
 function _init()
 	cls(0)
 	shkamnt = 0
+	blink_g = 5
+	blinkframe = 0
+	blinkspeed = 6
+	blinkindex = 1
 	gamestate="start"
 	combo=1
 	levelnum=1
@@ -100,9 +105,9 @@ function draw_game()
 end
 
 function draw_start()
-	cls(3)
+	cls()
 	print("breakout",48,50,7)
-	print("press ❎ to start",31,70,7)
+	print("press ❎ to start",31,70,blink_g)
 end
 
 function game_start()
