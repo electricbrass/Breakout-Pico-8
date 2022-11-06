@@ -1,8 +1,9 @@
 --game loop
 function _update60()
 	doblink()
+	shakescr()
 	if gamestate=="start" then
-		game_start()
+		update_start()
 	elseif gamestate=="game" then
 		update_game()
 	elseif gamestate=="gameover" then
@@ -13,7 +14,10 @@ function _update60()
 end
 
 function _draw()
-	shakescr()
+	pal()
+	if fadeamnt > 0 then
+		fadepalette(fadeamnt)
+	end
 	if gamestate=="start" then
 		draw_start()
 	elseif gamestate=="game" then
@@ -32,6 +36,7 @@ function _init()
 	blinkframe = 0
 	blinkspeed = 6
 	blinkindex = 1
+	fadeamnt = 0
 	gamestate="start"
 	combo=1
 	levelnum=1
@@ -88,6 +93,7 @@ function update_game()
 end
 
 function draw_game()
+	fadeamnt -= 0.05
 	cls()
 	rectfill(0,0,127,127,12)
 	rectfill(0,0,128,6,8)
@@ -110,17 +116,33 @@ function draw_start()
 	print("press ❎ to start",31,70,blink_g)
 end
 
-function game_start()
-	if btnp(5) then
-		gamestate="game"
-		pad_x=52
-		combo=1
-		lives=3
-		points=0
-		serveball()
-		levelnum=1
-		buildbricks(levels[levelnum])
+function update_start()
+	if not titletimer or titletimer < 0 then
+		if btnp(5) then
+			sfx(14)
+			blinkspeed = 1.5
+			titletimer = 40
+		end
+	else
+		titletimer -= 1
+		fadeamnt = (40 - titletimer) / 40
+		if titletimer <= 0 then
+			blinkspeed = 8
+			titletimer = -1
+			game_start()
+		end
 	end
+end
+
+function game_start()
+	gamestate="game"
+	pad_x=52
+	combo=1
+	lives=3
+	points=0
+	serveball()
+	levelnum=1
+	buildbricks(levels[levelnum])
 end
 
 function nextlevel()
