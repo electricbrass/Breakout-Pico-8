@@ -164,7 +164,7 @@ end
 function draw_gameover()
 	rectfill(0,47,128,78,0)
 	print("game over",46,53,7)
-	print("press ❎ to play again",20,68,6)
+	print("press ❎ to play again",20,68,blink_g)
 end
 
 function draw_levelover()
@@ -183,8 +183,20 @@ function levelover()
 end
 
 function update_gameover()
-	if btnp(5) then 
-		game_start()
+	if not titletimer or titletimer < 0 then
+		if btnp(5) then
+			sfx(14)
+			blinkspeed = 1.5
+			titletimer = 40
+		end
+	else
+		titletimer -= 1
+		fadeamnt = (40 - titletimer) / 40
+		if titletimer <= 0 then
+			blinkspeed = 8
+			titletimer = -1
+			game_start()
+		end
 	end
 end
 
