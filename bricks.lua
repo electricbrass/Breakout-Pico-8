@@ -97,6 +97,8 @@ end
 function hitbrick(_i,_combo)
 	if bricks[_i].t=="b" then
 		sfx(3+combo)
+		-- spawn particles
+		brickshatter(bricks[_i])
 		if _combo then
 			points+=10*combo*mult
 			combo=mid(1,combo+1,7)
@@ -126,6 +128,8 @@ function hitbrick(_i,_combo)
 		--explode
 	elseif bricks[_i].t=="p" then
 		sfx(3+combo)
+		-- spawn particles
+		brickshatter(bricks[_i])
 		if _combo then
 			points+=10*combo*mult
 			combo=mid(1,combo+1,7)

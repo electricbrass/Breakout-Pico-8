@@ -66,10 +66,12 @@ end
 
 -- particles
 
-function addparticle(x, y, type, maxage, colors)
+function addparticle(x, y, dx, dy, type, maxage, colors)
     local p = {}
     p.x = x
     p.y = y
+    p.dx = dx
+    p.dy = dy
     p.type = type
     p.maxage = maxage
     p.age = 0
@@ -86,7 +88,13 @@ function spawntrail(x, y)
         else
             colors = {10, 9}
         end
-        addparticle(x + sin(rnd()) * rad * 0.5, y + cos(rnd()) * rad * 0.5, 0, 10 + rnd(15), colors)
+        addparticle(x + sin(rnd()) * rad * 0.5, y + cos(rnd()) * rad * 0.5, 0, 0, 0, 10 + rnd(15), colors)
+    end
+end
+
+function brickshatter(brick)
+    for i = 0, 10 do
+        addparticle(brick.x, brick.y, sin(rnd()), cos(rnd()), 1, 60, {7})
     end
 end
 
@@ -95,16 +103,25 @@ function updateparticles()
         particle.age += 1
         if particle.age > particle.maxage then
             del(particles, particle)
-        elseif #particle.colors > 1 then
-            local colorindex = flr((particle.age / particle.maxage) * #particle.colors) + 1
-            particle.color = particle.colors[colorindex]
+        else
+            if #particle.colors > 1 then
+                local colorindex = flr((particle.age / particle.maxage) * #particle.colors) + 1
+                particle.color = particle.colors[colorindex]
+            end
+            if particle.type == 1 then
+                -- gravity
+                particle.dy += 0.1
+                -- move particle
+                particle.y += particle.dy
+                particle.x += particle.dx
+            end
         end
     end
 end
 
 function drawparticles()
     for particle in all(particles) do
-        if particle.type == 0 then
+        if particle.type == 0 or particle.type == 1 then
             pset(particle.x, particle.y, particle.color)
         end
     end
