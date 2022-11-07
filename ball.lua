@@ -211,19 +211,19 @@ function update_ball(ball)
 			end
 		end
 		move_ball(ball)
-		for i=1,#bricks do
+		for brick in all(bricks) do
 			-- check if hit brick
-			if not(bricks[i].brk) and check_collision(ball,bricks[i].x,bricks[i].y,brick_w,brick_h) then
+			if not(brick.brk) and check_collision(ball,brick.x,brick.y,brick_w,brick_h) then
 			-- no collision if megaball
 				if t_mega <= 0 or bricks[i].t=="i" then
 				-- check direction
-					if collision_direction(ball.x,ball.y,ball.dx,ball.dy,bricks[i].x,bricks[i].y,brick_w,brick_h) then
+					if collision_direction(ball.x,ball.y,ball.dx,ball.dy,brick.x,brick.y,brick_w,brick_h) then
 						ball.dx=-ball.dx
 					else
 						ball.dy=-ball.dy
 					end
 				end
-				hitbrick(i,true)
+				hitbrick(brick, true, ball.dx, ball.dy)
 				break
 			end
 		end

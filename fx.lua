@@ -92,9 +92,12 @@ function spawntrail(x, y)
     end
 end
 
-function brickshatter(brick)
-    for i = 0, 10 do
-        addparticle(brick.x, brick.y, sin(rnd()), cos(rnd()), 1, 60, {7})
+function brickshatter(brick, balldx, balldy)
+    for i = 0, brick_w do
+        for j = 0, brick_h do
+            local angle = rnd()
+            addparticle(brick.x + i, brick.y + j, sin(angle) * 2, cos(angle) * 2, 1, 80, {7})
+        end
     end
 end
 

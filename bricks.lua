@@ -94,49 +94,49 @@ function levelfinished()
 	return true
 end
 
-function hitbrick(_i,_combo)
-	if bricks[_i].t=="b" then
+function hitbrick(brick, docombo, balldx, balldy)
+	if brick.t=="b" then
 		sfx(3+combo)
 		-- spawn particles
-		brickshatter(bricks[_i])
-		if _combo then
+		brickshatter(brick, balldx, balldy)
+		if docombo then
 			points+=10*combo*mult
 			combo=mid(1,combo+1,7)
 		end
-		bricks[_i].brk=true
-	elseif bricks[_i].t=="h" then
+		brick.brk=true
+	elseif brick.t=="h" then
 		if t_mega > 0 then
 			sfx(3+combo)
-			if _combo then
+			if docombo then
 				points+=10*combo*mult
 				combo=mid(1,combo+1,7)
 			end
-			bricks[_i].brk=true
+			brick.brk=true
 		else
 			sfx(12)
-			bricks[_i].t="b"
+			brick.t="b"
 		end
-	elseif bricks[_i].t=="i" then
+	elseif brick.t=="i" then
 		sfx(12)
-	elseif bricks[_i].t=="e" then
+	elseif brick.t=="e" then
 		sfx(3+combo)
-		if _combo then
+		if docombo then
 			points+=10*combo*mult
 			combo=mid(1,combo+1,7)
 		end
-		bricks[_i].t="zzz"
+		brick.t="zzz"
 		--explode
-	elseif bricks[_i].t=="p" then
+	elseif brick.t=="p" then
 		sfx(3+combo)
 		-- spawn particles
-		brickshatter(bricks[_i])
-		if _combo then
+		brickshatter(brick, balldx, balldy)
+		if docombo then
 			points+=10*combo*mult
 			combo=mid(1,combo+1,7)
 		end
-		bricks[_i].brk=true
+		brick.brk=true
 		--spawn powerup
-		spawn_pwp(bricks[_i].x,bricks[_i].y)
+		spawn_pwp(brick.x,brick.y)
 	end
 end
 
@@ -162,7 +162,7 @@ function explodebrick(_i)
  		and not(bricks[j].brk)
  		and abs(bricks[j].x-bricks[_i].x) <= brick_w+2
  		and abs(bricks[j].y-bricks[_i].y) <= brick_h+2 then
- 	 	hitbrick(j,false)
+ 	 	hitbrick(bricks[j],false,0,0)
  		end
  	end
 	shkamnt = min(0.8, shkamnt + 0.4)
