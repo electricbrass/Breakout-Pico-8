@@ -96,7 +96,9 @@ function brickshatter(brick, balldx, balldy)
     for i = 0, brick_w do
         for j = 0, brick_h do
             local angle = rnd()
-            addparticle(brick.x + i, brick.y + j, sin(angle) * 2, cos(angle) * 2, 1, 80, {7})
+            local dx = sin(angle) * rnd(2) + balldx
+            local dy = cos(angle) * rnd(2) + balldy
+            addparticle(brick.x + i, brick.y + j, dx, dy, 1, 80, {7})
         end
     end
 end
@@ -105,6 +107,13 @@ function updateparticles()
     for particle in all(particles) do
         particle.age += 1
         if particle.age > particle.maxage then
+            -- delete if reached end of lifespan
+            del(particles, particle)
+        elseif particle.x < -20 or particle.x > 148 then
+            -- delete if offscreen
+            del(particles, particle)
+        elseif particle.y < -20 or particle.y > 148 then
+            -- delete if offscreen
             del(particles, particle)
         else
             if #particle.colors > 1 then
@@ -113,7 +122,7 @@ function updateparticles()
             end
             if particle.type == 1 then
                 -- gravity
-                particle.dy += 0.1
+                particle.dy += 0.05
                 -- move particle
                 particle.y += particle.dy
                 particle.x += particle.dx

@@ -214,6 +214,8 @@ function update_ball(ball)
 		for brick in all(bricks) do
 			-- check if hit brick
 			if not(brick.brk) and check_collision(ball,brick.x,brick.y,brick_w,brick_h) then
+				local balldx = ball.dx
+				local balldy = ball.dy
 			-- no collision if megaball
 				if t_mega <= 0 or bricks[i].t=="i" then
 				-- check direction
@@ -223,7 +225,7 @@ function update_ball(ball)
 						ball.dy=-ball.dy
 					end
 				end
-				hitbrick(brick, true, ball.dx, ball.dy)
+				hitbrick(brick, true, balldx, balldy)
 				break
 			end
 		end
