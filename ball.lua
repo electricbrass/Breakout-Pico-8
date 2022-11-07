@@ -217,7 +217,7 @@ function update_ball(ball)
 				local balldx = ball.dx
 				local balldy = ball.dy
 			-- no collision if megaball
-				if t_mega <= 0 or bricks[i].t=="i" then
+				if t_mega <= 0 or brick.t=="i" then
 				-- check direction
 					if collision_direction(ball.x,ball.y,ball.dx,ball.dy,brick.x,brick.y,brick_w,brick_h) then
 						ball.dx=-ball.dx

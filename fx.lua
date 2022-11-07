@@ -93,12 +93,16 @@ function spawntrail(x, y)
 end
 
 function brickshatter(brick, balldx, balldy)
+    brick.offx = balldx * 4
+    brick.offy = balldy * 4
     for i = 0, brick_w do
         for j = 0, brick_h do
-            local angle = rnd()
-            local dx = sin(angle) * rnd(2) + balldx
-            local dy = cos(angle) * rnd(2) + balldy
-            addparticle(brick.x + i, brick.y + j, dx, dy, 1, 80, {7})
+            if rnd() > 0.5 then
+                local angle = rnd()
+                local dx = sin(angle) * rnd(2) + (balldx / 2)
+                local dy = cos(angle) * rnd(2) + (balldy / 2)
+                addparticle(brick.x + i, brick.y + j, dx, dy, 1, 80, {7, 6})
+            end
         end
     end
 end
@@ -106,7 +110,7 @@ end
 function updateparticles()
     for particle in all(particles) do
         particle.age += 1
-        if particle.age > particle.maxage then
+        if particle.age >= particle.maxage then
             -- delete if reached end of lifespan
             del(particles, particle)
         elseif particle.x < -20 or particle.x > 148 then

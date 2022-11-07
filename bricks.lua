@@ -54,14 +54,19 @@ function addbrick(bi,bt)
 		x = 4+((bi-1)%11)*(brick_w+2),
 		y = 20+flr((bi-1)/11)*(brick_h+2),
 		brk = false,
-		t = bt
+		t = bt,
+		flashtime = 0,
+		offx = 0,
+		offy = 0
 	}
 	add(bricks, _b)
 end
 
 function draw_brick()
 	for i=1,#bricks do
-		if bricks[i].t=="b" then
+		if bricks[i].flashtime > 0 then
+			brick_clr=7
+		elseif bricks[i].t=="b" then
 			brick_clr=6
 		elseif bricks[i].t=="h" then
 			brick_clr=13
@@ -78,8 +83,10 @@ function draw_brick()
 		elseif bricks[i].t=="zzz" then
 			brick_clr=8
 		end
-		if not(bricks[i].brk) then
-			rectfill(bricks[i].x,bricks[i].y,brick_w+bricks[i].x,brick_h+bricks[i].y,brick_clr)
+		if not(bricks[i].brk) or bricks[i].flashtime > 0 then
+			local x = bricks[i].x + bricks[i].offx
+			local y = bricks[i].y + bricks[i].offy
+			rectfill(x,y,brick_w+x,brick_h+y,brick_clr)
 		end
 	end
 end
@@ -95,8 +102,10 @@ function levelfinished()
 end
 
 function hitbrick(brick, docombo, balldx, balldy)
+	local flashtime = 8
 	if brick.t=="b" then
 		sfx(3+combo)
+		brick.flashtime = flashtime
 		-- spawn particles
 		brickshatter(brick, balldx, balldy)
 		if docombo then
@@ -107,6 +116,7 @@ function hitbrick(brick, docombo, balldx, balldy)
 	elseif brick.t=="h" then
 		if t_mega > 0 then
 			sfx(3+combo)
+			brick.flashtime = flashtime
 			if docombo then
 				points+=10*combo*mult
 				combo=mid(1,combo+1,7)
@@ -128,6 +138,7 @@ function hitbrick(brick, docombo, balldx, balldy)
 		--explode
 	elseif brick.t=="p" then
 		sfx(3+combo)
+		brick.flashtime = flashtime
 		-- spawn particles
 		brickshatter(brick, balldx, balldy)
 		if docombo then
@@ -166,4 +177,14 @@ function explodebrick(_i)
  		end
  	end
 	shkamnt = min(0.8, shkamnt + 0.4)
+end
+
+function update_bricks()
+	for brick in all(bricks) do
+		if brick.flashtime > 0 then
+			brick.flashtime = max(brick.flashtime - 1, 0)
+			brick.offx -= sgn(brick.offx)
+			brick.offy -= sgn(brick.offy)
+		end
+	end
 end

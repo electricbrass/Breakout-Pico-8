@@ -95,6 +95,7 @@ function update_game()
 		levelover()
 	end
 	timer()
+	update_bricks()
 end
 
 function draw_game()
