@@ -66,20 +66,22 @@ end
 
 -- particles
 
-function addparticle(x, y, type, maxage, color, oldcolor)
+function addparticle(x, y, type, maxage, colors)
     local p = {}
     p.x = x
     p.y = y
     p.type = type
     p.maxage = maxage
     p.age = 0
-    p.color = color
-    p.oldcolor = oldcolor
+    p.color = colors[1]
+    p.colors = colors
     add(particles, p)
 end
 
 function spawntrail(x, y)
-    addparticle(x + sin(rnd()) * rad * 0.5, y + cos(rnd()) * rad * 0.5, 0, 10 + rnd(15), 10, 9)
+    if rnd() < 0.8 then
+        addparticle(x + sin(rnd()) * rad * 0.5, y + cos(rnd()) * rad * 0.5, 0, 10 + rnd(15), {10, 9})
+    end
 end
 
 function updateparticles()
@@ -87,8 +89,9 @@ function updateparticles()
         particle.age += 1
         if particle.age > particle.maxage then
             del(particles, particle)
-        elseif particle.age > particle.maxage / 2 then
-            particle.color = particle.oldcolor
+        elseif #particle.colors > 1 then
+            local colorindex = flr((particle.age / particle.maxage) * #particle.colors) + 1
+            particle.color = particle.colors[colorindex]
         end
     end
 end
