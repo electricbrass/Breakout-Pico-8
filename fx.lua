@@ -80,7 +80,13 @@ end
 
 function spawntrail(x, y)
     if rnd() < 0.8 then
-        addparticle(x + sin(rnd()) * rad * 0.5, y + cos(rnd()) * rad * 0.5, 0, 10 + rnd(15), {10, 9})
+        local colors
+        if t_mega > 0 then
+            colors = {8, 9, 10, 11}
+        else
+            colors = {10, 9}
+        end
+        addparticle(x + sin(rnd()) * rad * 0.5, y + cos(rnd()) * rad * 0.5, 0, 10 + rnd(15), colors)
     end
 end
 

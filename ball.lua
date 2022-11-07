@@ -15,11 +15,11 @@ function draw_ball()
 			pset(ball.x+ball.dx*11,ball.y+ball.dy*11,col4)
 		end
 		if t_mega > 0 then
-			clr = 8
+			circfill(ball.x,ball.y,rad,8)
+			circ(ball.x,ball.y,rad,5)
 		else
-			clr = 10
+			circfill(ball.x,ball.y,rad,10)
 		end
-		circfill(ball.x,ball.y,rad,clr)
 	end
 end
 
