@@ -93,8 +93,8 @@ function spawntrail(x, y)
 end
 
 function brickshatter(brick, balldx, balldy)
-    brick.offx = balldx * 4
-    brick.offy = balldy * 4
+    brick.dx = balldx * 1
+    brick.dy = balldy * 1
     for i = 0, brick_w do
         for j = 0, brick_h do
             if rnd() > 0.5 then

@@ -57,7 +57,9 @@ function addbrick(bi,bt)
 		t = bt,
 		flashtime = 0,
 		offx = 0,
-		offy = 0
+		offy = -(128 + rnd(128)),
+		dx = 0,
+		dy = rnd(32)
 	}
 	add(bricks, _b)
 end
@@ -102,7 +104,7 @@ function levelfinished()
 end
 
 function hitbrick(brick, docombo, balldx, balldy)
-	local flashtime = 8
+	local flashtime = 10
 	if brick.t=="b" then
 		sfx(3+combo)
 		brick.flashtime = flashtime
@@ -181,10 +183,33 @@ end
 
 function update_bricks()
 	for brick in all(bricks) do
+		-- check if offset or moving
+		if brick.dx != 0 or brick.dy != 0 or brick.offx != 0 or brick.offy != 0 then
+			-- update offset
+			brick.offx += brick.dx
+			brick.offy += brick.dy
+			-- slow speed
+			brick.dx -= brick.offx/10
+			brick.dy -= brick.offy/10
+			-- help prevent overshooting
+			if abs(brick.dx) > brick.offx then
+				brick.dx /= 1.4
+			end
+			if abs(brick.dy) > brick.offy then
+				brick.dy /= 1.4
+			end
+			-- snap to correct position
+			if abs(brick.offy) < 0.2 and abs(brick.dy) < 0.25 then
+				brick.dy = 0
+				brick.offy = 0
+			end
+			if abs(brick.offx) < 0.2 and abs(brick.dx) < 0.25 then
+				brick.dx = 0
+				brick.offx = 0
+			end
+		end
 		if brick.flashtime > 0 then
 			brick.flashtime = max(brick.flashtime - 1, 0)
-			brick.offx -= sgn(brick.offx)
-			brick.offy -= sgn(brick.offy)
 		end
 	end
 end
